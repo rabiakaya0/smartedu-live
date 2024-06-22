@@ -1,0 +1,70 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="all-title-box">
+		<div class="container text-center">
+			<h1>{{ teacher.name }}<span class="m_1">{{ teacher.description }}</span></h1>
+		</div>
+	</div>
+	
+    <div id="overviews" class="section wb">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-lg-12 blog-post-single">
+					<div class="blog-author">
+						<div class="author-bio">
+							<h3 class="author_name">{{ teacher.name }}</h3>
+							<h5>{{ teacher.title }}</h5>
+							<p class="author_det">
+								{{ teacher.description}}
+							</p>
+						</div>
+						<div class="author-desc">
+							<img src="{{teacher.image.url}}" alt="about author">
+							<ul class="author-social">
+								<li><a href="{{ teacher.github }}"><i class="fa-brands fa-github"></i></a></li>
+								<li><a href="{{ teacher.twitter }}"><i class="fa-brands fa-x-twitter"></i></a></li>
+								<li><a href="{{ teacher.linkedin }}"><i class="fa-brands fa-linkedin"></i></a></li>
+								<li><a href="{{ teacher.youtube }}"><i class="fa-brands fa-youtube"></i></a></li>
+							</ul>
+						</div>
+					</div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+			
+            <div class="row"> 
+				<div class="col-lg-12">
+					<h2 class="text-center my-5">Bu hoca tarafından verilen kurslar</h2>
+				</div>
+				{% for course in courses_by_teacher%}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="course-item">
+						<div class="image-blog">
+							<img src="{{course.image.url}}" alt="" class="img-fluid">
+						</div>
+						<div class="course-br">
+							<div class="course-title">
+								<h2><a href="{% url 'course_detail' course.category.slug course.id %}" title="">{{course.name}}</a></h2>
+							</div>
+							<div class="course-desc">
+								<p>{{course.description}}</p>
+							</div>
+						</div>
+						<div class="course-meta-bot">
+							<ul>
+								{% for tag in course.tags.all%}
+								<li><i class="fa fa-book" aria-hidden="true"></i>{{ tag.name }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					
+				<br>
+                </div><!-- end col -->
+				{%endfor%}
+            </div><!-- end row -->	
+        </div><!-- end container -->
+    </div><!-- end section -->
+	{%endblock %}

@@ -1,0 +1,62 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="all-title-box">
+		<div class="container text-center">
+			<h1>{{ user.first_name }} {{user.last_name}}</h1>
+		</div>
+	</div>
+	
+    <div id="overviews" class="section wb">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-lg-12 blog-post-single">
+					<div class="blog-author">
+							<h2 class="text-center my-2" style="padding-top:15px">Dashboard for {{ user.username }}</h2>
+					</div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+			
+            <div class="row" style="margin-top: 20px"> 
+				<div class="col-lg-9 blog-post-single">
+					
+                    <div class="row"> 
+                        {% for course in courses%}
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                            <div class="course-item">
+                                <div class="image-blog">
+                                    <img src="{{course.image.url}}" alt="" class="img-fluid">
+                                </div>
+                                <div class="course-br">
+                                    <div class="course-title">
+                                        <h2><a href="{% url 'course_detail' course.category.slug course.id %}" title="">{{course.name}}</a></h2>
+                                    </div>
+                                    <div class="course-desc">
+                                        <p>{{course.description | truncatechars:150}}</p>
+                                    </div>
+                                </div>
+                                <div class="course-meta-bot course-br">
+                                    <ul>
+										{% for tag in course.tags.all%}
+                                        <li><i class="fa fa-book" aria-hidden="true"></i> {{ tag.name }}</li>
+										{% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="course-meta-bot">
+                                    <ul>
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ course.date|date:"d M Y" }}</li>
+                                        <li><i class="fa fa-signature" aria-hidden="true"></i> {{ course.teacher}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+                        {% endfor %}
+                    </div><!-- end row -->
+					
+                </div><!-- end col -->
+            </div><!-- end row -->	
+        </div><!-- end container -->
+    </div><!-- end section -->
+	{%endblock %}
